@@ -2,7 +2,7 @@
  * Guilt Engine.
  * The personality layer. Generates guilt-trip messages based on
  * how long a book has been sitting in the TBR pile.
- * Balkan-mom energy: not mean, just... disappointed.
+ * Not mean, just... disappointed.
  */
 
 export function guiltLevel(daysInPile: number): "fresh" | "warm" | "toasty" | "burnt" | "ash" {
