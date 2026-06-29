@@ -1,0 +1,9 @@
+{
+  "name": "@vellum-ai/nightstand",
+  "version": "0.1.0",
+  "description": "Your reading life in one plugin. Track your TBR pile, get guilt-tripped about your backlog, find your next read, run your book club, and never miss a new release.",
+  "peerDependencies": {
+    "@vellumai/plugin-api": "^0.10.0"
+  },
+  "vellum": {}
+}
