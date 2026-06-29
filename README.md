@@ -8,7 +8,8 @@ Your reading life in one Vellum plugin. Track your TBR pile, get guilt-tripped a
 - **Guilt engine** - gentle Balkan-mom energy reminders about neglected books. not mean, just... disappointed
 - **Backlog purge** - surfaces your 3 most neglected books and asks which one you're committing to
 - **Reading streaks** - track consecutive books finished, longest streak, weekly stats
-- **Goodreads import** - migrate your entire Goodreads library (TBR + reading history + ratings) from a CSV export
+- **Goodreads sync (RSS)** - pull live data from your Goodreads shelves via RSS feed. no file export needed, updates existing entries with richer metadata
+- **Goodreads import (CSV)** - migrate your entire Goodreads library (TBR + reading history + ratings) from a CSV export
 - **Book search** - powered by Open Library (no auth needed) with optional Hardcover integration for enhanced features
 
 ## Installation
@@ -29,6 +30,7 @@ Just talk to your assistant naturally:
 - "Help me pick from my backlog"
 - "How am I doing on reading this year?"
 - "Import my Goodreads export from ~/Downloads/goodreads_library_export.csv"
+- "Sync my Goodreads from my RSS feed"
 
 ## Data sources
 
@@ -49,9 +51,10 @@ nightstand/
 │   ├── tbr-add.ts            # Add to TBR pile
 │   ├── tbr-list.ts           # List TBR with guilt ratings
 │   ├── tbr-complete.ts       # Mark as read + update streak
-│   ├── tbr-purge.ts          # Backlog prioritization
-│   ├── reading-stats.ts      # Streak, books, avg rating
-│   └── import-goodreads.ts   # Goodreads CSV import
+│   ├── tbr-purge.ts            # Backlog prioritization
+│   ├── reading-stats.ts        # Streak, books, avg rating
+│   ├── sync-goodreads.ts       # Goodreads RSS live sync
+│   └── import-goodreads.ts     # Goodreads CSV import
 ├── skills/
 │   └── nightstand/SKILL.md   # Orchestration + personality
 └── src/
