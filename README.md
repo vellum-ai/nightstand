@@ -29,7 +29,6 @@ Just talk to your assistant naturally:
 - "I just finished *Project Hail Mary*, 5 stars"
 - "Help me pick from my backlog"
 - "How am I doing on reading this year?"
-- "Import my Goodreads export from ~/Downloads/goodreads_library_export.csv"
 - "Sync my Goodreads from my RSS feed"
 
 ## Data sources
