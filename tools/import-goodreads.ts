@@ -22,9 +22,19 @@ const tool: ToolDefinition = {
     required: ["csvPath"],
   },
   defaultRiskLevel: "low",
-  execute: async (input: { csvPath: string }, ctx) => {
+  execute: async (input: Record<string, unknown>, ctx) => {
     try {
-      const raw = await fs.readFile(input.csvPath, "utf8");
+      // The model may pass the path under different keys
+      const csvPath = (input.csvPath ?? input.path ?? input.filePath ?? input.file ?? input.csv_path) as string | undefined;
+
+      if (!csvPath || typeof csvPath !== "string") {
+        return {
+          content: "I need the file path to the Goodreads CSV export. Please provide the absolute path to the file, e.g. ~/Downloads/goodreads_library_export.csv",
+          isError: true,
+        };
+      }
+
+      const raw = await fs.readFile(csvPath, "utf8");
 
       // Parse CSV - Goodreads format has specific columns we care about:
       // Title, Author, ISBN, My Rating, Date Read, Bookshelves, Date Added
