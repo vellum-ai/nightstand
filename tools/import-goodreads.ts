@@ -45,7 +45,7 @@ const tool: ToolDefinition = {
         return { content: "Could not find a Title column in the CSV. Make sure this is a Goodreads export." };
       }
 
-      const state = await loadState(ctx.pluginStorageDir);
+      const state = await loadState(ctx.workingDir);
       let importedTbr = 0;
       let importedRead = 0;
       let skipped = 0;
@@ -103,7 +103,7 @@ const tool: ToolDefinition = {
         }
       }
 
-      await saveState(ctx.pluginStorageDir, state);
+      await saveState(ctx.workingDir, state);
 
       return {
         content: `Goodreads import complete.\n- ${importedRead} books added to reading history\n- ${importedTbr} books added to TBR pile\n- ${skipped} entries skipped (duplicates or no shelf info)\n\nYour pile now has ${state.tbr.length} books. You've finished ${state.completed.length} total.`,

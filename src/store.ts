@@ -1,7 +1,11 @@
 /**
  * Local persistence for Nightstand.
  * Stores TBR pile, reading history, streaks, and followed authors
- * in a JSON file inside the plugin storage directory.
+ * in a JSON file inside the plugin data directory.
+ *
+ * The plugin data directory is <workspaceDir>/plugins-data/nightstand/.
+ * InitContext provides pluginStorageDir to hooks, but ToolContext does not
+ * expose it, so tools derive the path from ctx.workingDir.
  */
 
 import { promises as fs } from "node:fs";
@@ -41,6 +45,7 @@ export interface ReadingState {
 }
 
 const STATE_FILE = "nightstand-state.json";
+const PLUGIN_NAME = "nightstand";
 
 function defaultState(): ReadingState {
   return {
@@ -55,7 +60,17 @@ function defaultState(): ReadingState {
   };
 }
 
-export async function loadState(storageDir: string): Promise<ReadingState> {
+/**
+ * Resolve the plugin storage directory from the tool's workingDir.
+ * Tools don't receive pluginStorageDir on their context (only hooks do),
+ * so we derive it: <workspaceDir>/plugins-data/nightstand/
+ */
+function resolveStorageDir(workingDir: string): string {
+  return path.join(workingDir, "plugins-data", PLUGIN_NAME);
+}
+
+export async function loadState(workingDir: string): Promise<ReadingState> {
+  const storageDir = resolveStorageDir(workingDir);
   const filePath = path.join(storageDir, STATE_FILE);
   try {
     const raw = await fs.readFile(filePath, "utf8");
@@ -67,9 +82,11 @@ export async function loadState(storageDir: string): Promise<ReadingState> {
 }
 
 export async function saveState(
-  storageDir: string,
+  workingDir: string,
   state: ReadingState,
 ): Promise<void> {
+  const storageDir = resolveStorageDir(workingDir);
+  await fs.mkdir(storageDir, { recursive: true });
   const filePath = path.join(storageDir, STATE_FILE);
   await fs.writeFile(filePath, JSON.stringify(state, null, 2), "utf8");
 }

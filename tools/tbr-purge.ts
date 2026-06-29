@@ -12,7 +12,7 @@ const tool: ToolDefinition = {
   defaultRiskLevel: "low",
   execute: async (_input, ctx) => {
     try {
-      const state = await loadState(ctx.pluginStorageDir);
+      const state = await loadState(ctx.workingDir);
       const now = Date.now();
       const entries = state.tbr
         .map((e) => ({

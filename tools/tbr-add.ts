@@ -30,7 +30,7 @@ const tool: ToolDefinition = {
     ctx,
   ) => {
     try {
-      const state = await loadState(ctx.pluginStorageDir);
+      const state = await loadState(ctx.workingDir);
 
       // Try to enrich with Open Library data
       const searchQuery = input.author
@@ -63,7 +63,7 @@ const tool: ToolDefinition = {
       }
 
       state.tbr.push(entry);
-      await saveState(ctx.pluginStorageDir, state);
+      await saveState(ctx.workingDir, state);
 
       return {
         content: `Added "${entry.title}" by ${entry.author} to your TBR pile. ${entry.source !== "manual" ? `Source: ${entry.source}. ` : ""}Your pile now has ${state.tbr.length} book${state.tbr.length === 1 ? "" : "s"}.`,

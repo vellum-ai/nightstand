@@ -11,7 +11,7 @@ const tool: ToolDefinition = {
   defaultRiskLevel: "low",
   execute: async (_input, ctx) => {
     try {
-      const state = await loadState(ctx.pluginStorageDir);
+      const state = await loadState(ctx.workingDir);
       const year = new Date().getFullYear();
       const booksThisYear = state.completed.filter(
         (b) => new Date(b.finishedAt).getFullYear() === year,

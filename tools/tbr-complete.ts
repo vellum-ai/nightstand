@@ -34,7 +34,7 @@ const tool: ToolDefinition = {
     ctx,
   ) => {
     try {
-      const state = await loadState(ctx.pluginStorageDir);
+      const state = await loadState(ctx.workingDir);
 
       // Find the book in TBR (fuzzy match on title)
       const tbrIdx = state.tbr.findIndex(
@@ -71,7 +71,7 @@ const tool: ToolDefinition = {
 
       state.completed.push(completed);
       state.streak = updateStreak(state.streak);
-      await saveState(ctx.pluginStorageDir, state);
+      await saveState(ctx.workingDir, state);
 
       const parts = [
         `Marked "${completed.title}" as read.`,
