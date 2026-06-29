@@ -5,7 +5,7 @@ Your reading life in one Vellum plugin. Track your TBR pile, get guilt-tripped a
 ## Features
 
 - **TBR pile tracker** - add books, see how long they've been sitting there, get guilt ratings from "fresh" to "ash"
-- **Guilt engine** - gentle Balkan-mom energy reminders about neglected books. not mean, just... disappointed
+- **Guilt engine** - gentle guilt-trip reminders about neglected books. not mean, just... disappointed
 - **Backlog purge** - surfaces your 3 most neglected books and asks which one you're committing to
 - **Reading streaks** - track consecutive books finished, longest streak, weekly stats
 - **Goodreads sync (RSS)** - pull live data from your Goodreads shelves via RSS feed. no file export needed, updates existing entries with richer metadata
@@ -20,7 +20,7 @@ assistant plugins install nightstand
 
 Then restart your assistant.
 
-## Usage
+## How to use
 
 Just talk to your assistant naturally:
 
