@@ -1,9 +1,9 @@
 /**
- * Local persistence for Nightstand.
+ * Local persistence for Reading Pal.
  * Stores TBR pile, reading history, streaks, and followed authors
  * in a JSON file inside the plugin data directory.
  *
- * The plugin data directory is <workspaceDir>/plugins-data/nightstand/.
+ * The plugin data directory is <workspaceDir>/plugins-data/reading-pal/.
  * InitContext provides pluginStorageDir to hooks, but ToolContext does not
  * expose it, so tools derive the path from ctx.workingDir.
  */
@@ -44,8 +44,8 @@ export interface ReadingState {
   followedAuthors: string[];
 }
 
-const STATE_FILE = "nightstand-state.json";
-const PLUGIN_NAME = "nightstand";
+const STATE_FILE = "reading-pal-state.json";
+const PLUGIN_NAME = "reading-pal";
 
 function defaultState(): ReadingState {
   return {
@@ -63,7 +63,7 @@ function defaultState(): ReadingState {
 /**
  * Resolve the plugin storage directory from the tool's workingDir.
  * Tools don't receive pluginStorageDir on their context (only hooks do),
- * so we derive it: <workspaceDir>/plugins-data/nightstand/
+ * so we derive it: <workspaceDir>/plugins-data/reading-pal/
  */
 function resolveStorageDir(workingDir: string): string {
   return path.join(workingDir, "plugins-data", PLUGIN_NAME);

@@ -1,4 +1,4 @@
-# Nightstand 📚
+# Reading Pal 📚
 
 Your reading life in one Vellum plugin. Track your TBR pile, get guilt-tripped about your backlog, find your next read, run your book club, and never miss a new release.
 
@@ -15,7 +15,7 @@ Your reading life in one Vellum plugin. Track your TBR pile, get guilt-tripped a
 ## Installation
 
 ```bash
-assistant plugins install nightstand
+assistant plugins install reading-pal
 ```
 
 Then restart your assistant.
@@ -43,7 +43,7 @@ No credentials required for core functionality. Add a Hardcover API token to unl
 ## Plugin structure
 
 ```
-nightstand/
+reading-pal/
 ├── package.json
 ├── tools/
 │   ├── book-search.ts        # Search Open Library
@@ -55,7 +55,7 @@ nightstand/
 │   ├── sync-goodreads.ts       # Goodreads RSS live sync
 │   └── import-goodreads.ts     # Goodreads CSV import
 ├── skills/
-│   └── nightstand/SKILL.md   # Orchestration + personality
+│   └── reading-pal/SKILL.md   # Orchestration + personality
 └── src/
     ├── store.ts              # Local persistence + streak logic
     ├── openlibrary-client.ts # Open Library API client

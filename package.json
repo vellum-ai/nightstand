@@ -1,5 +1,5 @@
 {
-  "name": "@vellum-ai/nightstand",
+  "name": "@vellum-ai/reading-pal",
   "version": "0.1.0",
   "description": "Your reading life in one plugin. Track your TBR pile, get guilt-tripped about your backlog, find your next read, run your book club, and never miss a new release.",
   "peerDependencies": {
