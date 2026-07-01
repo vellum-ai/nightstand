@@ -1,0 +1,122 @@
+{
+  "version": 1,
+  "tools": [
+    {
+      "name": "book_search",
+      "description": "Search for books by title, author, or keyword. Returns matches with title, author, cover, ISBN, and publish year. Use this when the user wants to find a book, look up what something is about, or before adding to their TBR pile.",
+      "category": "reading",
+      "risk": "low",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "query": { "type": "string", "description": "Book title, author name, or keyword to search for." },
+          "limit": { "type": "number", "description": "Max number of results to return (default 5)." }
+        },
+        "required": ["query"]
+      },
+      "executor": "tools/book-search.ts",
+      "execution_target": "sandbox"
+    },
+    {
+      "name": "tbr_add",
+      "description": "Add a book to the user's TBR (to-be-read) pile. Searches for the book if not already found, adds it with a timestamp and source. Use when the user says 'add to my pile', 'I want to read this', 'add this to my list', or mentions a book they're interested in reading.",
+      "category": "reading",
+      "risk": "low",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "title": { "type": "string", "description": "The book title to add to the TBR pile." },
+          "author": { "type": "string", "description": "Author name (optional, helps disambiguate)." },
+          "source": { "type": "string", "description": "How the user heard about it (friend, recommendation, saw it online, etc). Optional." }
+        },
+        "required": ["title"]
+      },
+      "executor": "tools/tbr-add.ts",
+      "execution_target": "sandbox"
+    },
+    {
+      "name": "tbr_list",
+      "description": "List the user's TBR (to-be-read) pile with guilt ratings showing how long each book has been waiting. Use when the user asks 'what's in my pile', 'show me my TBR', 'what should I read', or 'how many books do I have unread'. Sorted by how long each book has been sitting there (oldest first, most neglected first).",
+      "category": "reading",
+      "risk": "low",
+      "input_schema": {
+        "type": "object",
+        "properties": {}
+      },
+      "executor": "tools/tbr-list.ts",
+      "execution_target": "sandbox"
+    },
+    {
+      "name": "tbr_complete",
+      "description": "Mark a book as read/completed. Removes it from the TBR pile, logs it in reading history with rating and optional notes, and updates the reading streak. Use when the user says 'I finished [book]', 'I just read [book]', 'mark [book] as read', or 'I'm done with [book]'.",
+      "category": "reading",
+      "risk": "low",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "title": { "type": "string", "description": "The title of the book you finished." },
+          "rating": { "type": "number", "description": "Rating from 1 to 5 (optional)." },
+          "notes": { "type": "string", "description": "Optional thoughts or notes about the book." }
+        },
+        "required": ["title"]
+      },
+      "executor": "tools/tbr-complete.ts",
+      "execution_target": "sandbox"
+    },
+    {
+      "name": "tbr_purge",
+      "description": "Show the user's most neglected books ranked by how long they've been in the TBR pile. A 'rip through your backlog' mode that surfaces the top 3 most neglected books and asks which one they're committing to. Use when the user says 'what should I read next from my pile', 'help me pick from my backlog', 'my pile is too long', 'prioritize my TBR', or 'what's been sitting there the longest'.",
+      "category": "reading",
+      "risk": "low",
+      "input_schema": {
+        "type": "object",
+        "properties": {}
+      },
+      "executor": "tools/tbr-purge.ts",
+      "execution_target": "sandbox"
+    },
+    {
+      "name": "reading_stats",
+      "description": "Show reading statistics: current streak, longest streak, books finished this year, total books finished, average rating, and TBR pile size. Use when the user asks 'how am I doing', 'what are my reading stats', 'how many books have I read', or 'show me my numbers'.",
+      "category": "reading",
+      "risk": "low",
+      "input_schema": {
+        "type": "object",
+        "properties": {}
+      },
+      "executor": "tools/reading-stats.ts",
+      "execution_target": "sandbox"
+    },
+    {
+      "name": "sync_goodreads",
+      "description": "Sync books from a Goodreads RSS feed. Pulls live data from the user's Goodreads shelves (read, to-read, currently-reading) and updates the local TBR pile and reading history. Use when the user says 'sync my Goodreads', 'pull my Goodreads shelves', 'import from Goodreads RSS', or 'update my books from Goodreads'. The user provides their Goodreads RSS URL (format: https://www.goodreads.com/review/list_rss/<USER_ID>?key=<KEY>&shelf=%23ALL%23).",
+      "category": "reading",
+      "risk": "low",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "rssUrl": { "type": "string", "description": "The full Goodreads RSS feed URL. Find it at Goodreads > My Books > RSS (bottom of page). Format: https://www.goodreads.com/review/list_rss/<USER_ID>?key=<KEY>&shelf=%23ALL%23" },
+          "shelf": { "type": "string", "description": "Optional shelf filter: 'read', 'to-read', 'currently-reading', or '#ALL#' (default). Use #ALL# to sync everything." }
+        },
+        "required": ["rssUrl"]
+      },
+      "executor": "tools/sync-goodreads.ts",
+      "execution_target": "sandbox"
+    },
+    {
+      "name": "import_goodreads",
+      "description": "Import books from a Goodreads CSV export. Reads the exported file and backfills the TBR pile and reading history with titles, authors, ratings, and dates. Use when the user says 'import my Goodreads', 'I exported my Goodreads library', 'migrate from Goodreads', or 'load my reading history from CSV'. The user should export from Goodreads via My Books > Import/Export > Export Library.",
+      "category": "reading",
+      "risk": "low",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "csvPath": { "type": "string", "description": "Absolute path to the exported Goodreads CSV file." }
+        },
+        "required": ["csvPath"]
+      },
+      "executor": "tools/import-goodreads.ts",
+      "execution_target": "sandbox"
+    }
+  ]
+}
